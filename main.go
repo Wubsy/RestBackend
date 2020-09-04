@@ -1,13 +1,13 @@
 package main
 
 import (
+	"RESTGo/tokens"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
-	"log"
 	"github.com/gorilla/mux"
-	"RESTGo/tokens"
+	"io/ioutil"
+	"log"
+	"net/http"
 )
 
 var(
@@ -21,7 +21,7 @@ var(
 
 
 //Convert Tokens to usernames
-func tokToUsername(t string, writer http.ResponseWriter) (string) {
+func tokToUsername(t string, writer http.ResponseWriter) string {
 	if t == tokens.WillToken {
 		return "Will"
 	}
