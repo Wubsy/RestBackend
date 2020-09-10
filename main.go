@@ -30,12 +30,11 @@ func tokToUsername(t string, writer http.ResponseWriter) string {
 	}
 	if t == tokens.DawsonToken {
 		return "Dawson"
-	} else {
-		writer.WriteHeader(418)
-		return ""
 	}
 
-}
+	writer.WriteHeader(401) //Unauthorized
+	return ""
+	}
 
 type MessageData struct {
 	UserID string `json:"UserID"`
@@ -72,14 +71,14 @@ func createMessage(writer http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	if !(len(message.Message) > 0)  {
-		writer.WriteHeader(400)
-		return
-	}
-
 	//fmt.Println(message)
 	username := tokToUsername(message.UserID, writer)
 	if username == "" {
+		return
+	}
+
+	if !(len(message.Message) > 0)  {
+		writer.WriteHeader(400)
 		return
 	}
 
